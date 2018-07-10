@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<img src="小天使/tianshi.gif" alt="">
+<script>
+//  需求小天使的图片跟着鼠标移动
+//修改img的位置
+//1.获取img
+  var img=document.getElementsByTagName('img')[0];
+//  2.获取鼠标的位置 鼠标的位置存放在事件对象上
+//  监听鼠标移动事件 mousemove
+//  给整个页面注册事件,直接给document注册就行了
+  document.onmousemove=function (e){
+    var x= e.clientX;
+    var y= e.clientY;
+    img.style.position="absolute";
+    img.style.left=x+'px';
+    img.style.top=y+'px';
+  }
+</script>
+</body>
+</html>

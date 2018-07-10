@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<select id="sel">
+  <option>请随机选择</option>
+  <option>食堂</option>
+  <option id="op">吃翔</option>
+  <option>泡面</option>
+  <option >外卖</option>
+  <option>哼,不吃了</option>
+</select>
+<input type="button" value="随机" id="btn">
+<script>
+//  找到元素
+  var sel=document.getElementById("sel");
+  var options=sel.getElementsByTagName('option');
+  var btn=document.getElementById("btn")
+//  获取一个随机数
+btn.onclick=function(){
+  var str=getRandom(1,options.length-1);
+//  console.log(str);
+  options[str].selected=true;
+}
+function getRandom(min, max) {
+
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+</script>
+</body>
+</html>

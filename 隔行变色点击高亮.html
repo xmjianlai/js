@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<ul id="mv">
+  <li>西施</li>
+  <li>貂蝉</li>
+  <li>王昭君</li>
+  <li>杨玉环</li>
+  <li>芙蓉姐姐</li>
+</ul>
+<script>
+//  1.隔行变色
+  var lis=document.getElementsByTagName("li");
+  for(var i=0;i<lis.length;i++){
+    if(i%2==0){
+      lis[i].style.backgroundColor="pink";
+      lis[i].setAttribute("sg","pink")
+    }
+    else{
+      lis[i].style.backgroundColor="hotpink";
+      lis[i].setAttribute("sg","hotpink")
+    }
+  }
+//  2.点击高亮
+  for(var i=0;i<lis.length;i++){
+    lis[i].onclick=fn;
+  }
+  function fn(){
+//    排他
+for(var i=0;i<lis.length;i++){
+  lis[i].style.backgroundColor=lis[i].getAttribute("sg")
+}
+    this.style.backgroundColor="skyblue";
+  }
+</script>
+</body>
+</html>
