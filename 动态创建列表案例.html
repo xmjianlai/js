@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<button id="btn"> 点击按钮,假装去服务器拿数据</button>
+<div id = "container">
+
+</div>
+<script>
+//  服务器数据
+  var arr = ['html', 'css', 'es5.0js', 'dom'];
+//  需求:点击按钮,将服务器的返回数据,渲染出来
+//获取元素
+var btn=document.getElementById("btn");
+var container=document.getElementById("container");
+//  1.给button注册点击事件
+btn.onclick=function(){
+  var ul=document.createElement("ul");
+  for(var i=0;i<arr.length;i++){
+    var li=document.createElement("li");
+    li.onmouseover=fn;
+    li.innerText=arr[i];
+    ul.appendChild(li);
+
+  }
+  container.appendChild(ul);
+}
+function fn(){
+  for(var i=0;i<arr.length;i++){
+    var lis=document.getElementsByTagName("li");
+    lis[i].style.backgroundColor="";
+  }
+  this.style.backgroundColor="lightgray";
+}
+//  2.根据数据动态的创建无序列表,然后将列表放到div中
+</script>
+</body>
+</html>
