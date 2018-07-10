@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<input type="text">
+<input type="button" value="按钮">
+<script>
+//  需求当点击按钮是禁用文本框
+//  1找到元素
+  var txt=document.getElementsByTagName("input")[0];
+  var btn=document.getElementsByTagName("input")[1];
+//  注册事件
+//disabled禁用的意思
+  btn.onclick=function(){
+    txt.disabled=true;
+  }
+</script>
+</body>
+</html>
