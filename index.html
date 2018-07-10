@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <!--<link rel="stylesheet" href="css/index.css">-->
+    <style>
+        img {
+            display: block;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .box {
+            width: 350px;
+            height: 350px;
+            margin: 100px;
+            border: 1px solid #ccc;
+            position: relative;
+        }
+
+        .big {
+            width: 400px;
+            height: 400px;
+            position: absolute;
+            top: 0;
+            left: 360px;
+            border: 1px solid #ccc;
+            overflow: hidden;
+            display: none;
+        }
+
+        .big img {
+            position: absolute;
+
+        }
+
+        .mask {
+            width: 175px;
+            height: 175px;
+            background: rgba(255, 255, 0, 0.4);
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            cursor: move;
+            display: none;
+        }
+
+        .small {
+            position: relative;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box" id="box">
+        <div class="small" id="small" >
+            <img src="images/small.jpg" width="350" alt="" />
+            <div class="mask" id="mask"></div>
+        </div>
+        <div class="big" id="big" >
+            <img src="images/big.jpg" width="800" alt="" id="img" />
+        </div>
+    </div>
+</body>
+
+
+<script src='jquery.js'></script>
+<script>
+
+    var box=document.getElementById('box');
+    var small=document.getElementById('small');
+    var mask=document.getElementById('mask');
+    var big=document.getElementById('big');
+//第一步需求鼠标移入显示mask跟big,鼠标移除隐藏
+$('#box').mouseenter(function(){
+    $('#mask,#big').show();
+})
+    $('#box').mouseleave(function(){
+        $('#mask,#big').hide();
+    })
+
+//    第二部鼠标在small中移动事件
+    small.onmousemove=function(e){
+//        获取鼠标移动的坐标
+        var x= e.clientX;
+        var y= e.clientY;
+//        获取small盒子的偏移量
+        var offsetx=box.offsetLeft;
+        var offsety=box.offsetTop;
+//        获取鼠标在盒子中的移动坐标
+        var smallx=x-offsetx;
+        var smally=y-offsety;
+
+//        让盒子在鼠标的中间鼠标的坐标减去盒子的一半
+        var smallx=smallx-(mask.offsetWidth/2);
+        var smally=smally-(mask.offsetHeight/2);
+//获取鼠标可移动的最小值与最大值
+        minx=0;
+        maxx=small.offsetWidth-mask.offsetWidth;
+        miny=0;
+        maxy=small.offsetHeight-mask.offsetHeight;
+//限制鼠标的可移动范围
+
+        if(smallx<=0){
+            smallx=minx;
+        }if(smallx>=maxx){
+            smallx=maxx
+        }
+        if(smally<=0){
+            smally=minx;
+        }if(smally>=maxx){
+            smally=maxx
+        }
+//        吧鼠标的移动坐标赋值给mask鼠标就能带着盒子移动
+        mask.style.left=smallx+'px';
+        mask.style.top=smally+'px';
+
+
+//        img的可移动范围跟mask的可移动范围的比例是一致的
+        var imgx=smallx/maxx*(img.offsetWidth-big.offsetWidth)
+        var imgy=smally/maxy*(img.offsetHeight-big.offsetHeight)
+//    img的移动坐标为
+        img.style.left=-imgx+'px';
+        img.style.top=-imgy+'px';
+    }
+</script>
+
+
+
+   
+   
+
+
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    img {
+      display: block;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    .box {
+      width: 350px;
+      height: 350px;
+      margin: 100px;
+      border: 1px solid #ccc;
+      position: relative;
+    }
+
+    .big {
+      width: 400px;
+      height: 400px;
+      position: absolute;
+      top: 0;
+      left: 360px;
+      border: 1px solid #ccc;
+      overflow: hidden;
+      display: none;
+    }
+
+    .big img {
+      position: absolute;
+
+    }
+
+    .mask {
+      width: 175px;
+      height: 175px;
+      background: rgba(255, 255, 0, 0.4);
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      cursor: move;
+      display: none;
+    }
+
+    .small {
+      position: relative;
+    }
+  </style>
+</head>
+<body>
+<div class="box" id="box">
+  <div class="small" id="small" >
+    <img src="放大镜/images/small.jpg" width="350" alt="" />
+    <div class="mask" id="mask"></div>
+  </div>
+  <div class="big" id="big" >
+    <img src="放大镜/images/big.jpg" width="800" alt="" id="img" />
+  </div>
+</div>
+<script>
+//  获取元素
+var box=document.getElementById('box');
+var small=document.getElementById('small');
+var mask=document.getElementById('mask');
+var big=document.getElementById('big');
+//鼠标移入small中时显示big和mask
+small.onmouseenter=function(){
+  mask.style.display='block';
+  big.style.display='block';
+
+}
+  small.onmouseleave=function(){
+    mask.style.display='none';
+    big.style.display='none';
+
+  }
+//  鼠标带着small移动
+  small.onmousemove=function(e){
+//    先获取鼠标移动的坐标
+    var x= e.clientX;
+    var y= e.clientY;
+//    获取盒子的偏移量
+    var offsetX=box.offsetLeft;
+    var offsetY=box.offsetTop;
+//    鼠标在盒子中的坐标
+    var smallX=x-offsetX;
+    var smallY=y-offsetY;
+//
+    //    获取鼠标在mask盒子中间的位置
+       smallX=smallX-(mask.offsetWidth/2);
+    smallY=smallY-(mask.offsetHeight/2);
+//    限制mask盒子在small中的移动范围 要获取到mask在small中的最大移动和最小移动坐标
+    minX=0;
+    maxX=small.offsetWidth-mask.offsetWidth;
+    minY=0;
+    maxY=small.offsetHeight-mask.offsetHeight;
+    if(smallX<=0){
+      smallX=minX;
+    }
+    if(smallX>=maxX){
+      smallX=maxX
+    }
+    if(smallY<=0){
+      smallY=minY;
+    }
+    if(smallY>=maxY){
+      smallY=maxY
+    }
+//    把鼠标在盒子中移动的坐标赋值给mask,mask就能跟着鼠标移动
+    mask.style.left=smallX+'px';
+    mask.style.top=smallY+'px';
+//    当mask移动时big中的img跟着移动 msk移动的坐标/mask可以移动的最大坐标=img移动的坐标/img可以移动的最大坐标
+//    公式:img移动坐标=mask移动坐标/mask移动坐标的最大坐标*img可以移动的做大坐标
+//    先获取img的移动坐标
+     var imgX=smallX/maxX*(img.offsetWidth-big.offsetWidth);
+    var imgY=smallY/maxY*(img.offsetHeight-big.offsetHeight);
+    img.style.top=-imgY+'px';
+    img.style.left=-imgX+'px';
+  }
+
+</script>
+</body>
+</html>
